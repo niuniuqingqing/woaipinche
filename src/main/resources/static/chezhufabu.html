@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>芝麻评车</title>
+<!-- head 中 -->
+<link rel="stylesheet" type="text/css"
+	href="//res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.staticfile.org/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdnjs.cloudflare.com/ajax/libs/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" href="weui-master/dist/style/weui.css" />
+<link rel="stylesheet" href="weui-master/dist/example/example.css" />
+
+<link rel="stylesheet" href="weui/css/weuix.css" />
+
+
+
+<script src="weui/js/zepto.min.js"></script>
+<script src="weui/js/zepto.weui.js"></script>
+
+<!-- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script> -->
+</head>
+<body>
+	<div class="page__hd"
+		style="background: url(timg4.jpg); background-size: 100% 100%; background-repeat: no-repeat;">
+		<h1 class="page__title">我爱拼车</h1>
+		<p class="page__desc" style="color: black">车主发布</p>
+	</div>
+	<div class="page__bd">
+		<div class="weui-cells">
+			<div class="weui-cell weui-cell_select weui-cell_select-after">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">起点</label>
+				</div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="select1">
+						<option value="1">成都</option>
+						<option value="2">巴中</option>
+						<option value="3">重庆</option>
+						<option value="4">巴中通江</option>
+						<option value="5">巴中平昌</option>
+						<option value="6">巴中顶山</option>
+						<option value="7">巴中南江</option>
+						<option value="8">恩阳玉山</option>
+					</select>
+				</div>
+			</div>
+			<div class="weui-cell weui-cell_select weui-cell_select-after">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">终点</label>
+				</div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="select2">
+					    <option value="2">巴中</option>
+						<option value="1">成都</option>
+						<option value="3">重庆</option>
+						<option value="4">巴中通江</option>
+						<option value="5">巴中平昌</option>
+						<option value="6">巴中顶山</option>
+						<option value="7">巴中南江</option>
+						<option value="8">恩阳玉山</option>
+					</select>
+				</div>
+			</div>
+
+
+			<div class="weui-cells">
+
+				<div class="weui-cell weui-cell_select weui-cell_select-before">
+					<div class="weui-cell__hd">
+						<select class="weui-select" name="select3">
+							<option value="1">+86</option>
+							<option value="2">+80</option>
+							<option value="3">+84</option>
+							<option value="4">+87</option>
+						</select>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="phone" class="weui-input" type="number"
+							pattern="[0-9]*" placeholder="请输入号码">
+					</div>
+				</div>
+			</div>
+
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="setOutDate" class="weui-label">时间</label>
+				</div>
+				<div class="weui-cell__bd">
+				<!-- 	<input id="setOutDate" class="weui-input" type="datetime-local"
+						value="" placeholder=""> -->
+						
+						<input id="setOutDate" class="weui-input" type="text"
+						value="" placeholder="">
+				</div>
+			</div>
+
+
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">车主</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input id="owner" class="weui-input" type="text"
+						placeholder="请输入文本">
+				</div>
+			</div>
+
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">车型</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input id="model" class="weui-input" type="text"
+						placeholder="请输入文本">
+				</div>
+			</div>
+
+
+
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">余座</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input id="remainingSeats" class="weui-input" type="text"
+						placeholder="请输入文本">
+				</div>
+			</div>
+
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">费用</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input id="price" class="weui-input" type="text"
+						placeholder="请输入文本">
+				</div>
+			</div>
+
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">备注</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input id="remark" class="weui-input" type="text"
+						placeholder="请输入文本">
+				</div>
+			</div>
+
+
+
+		</div>
+
+		<div class="button-sp-area">
+			<a  id="fabu"
+				class="weui-btn weui-btn_block weui-btn_primary">发布信息</a>
+		</div>
+	</div>
+	<div class="page__ft"></div>
+	<script>
+		$(function(){
+			$("#setOutDate").datetimePicker({
+		        title: '自定义格式',
+		        yearSplit: '年',
+		        monthSplit: '月',
+		        dateSplit: '日',
+		        times: function () {
+		            return [  // 自定义的时间
+		                {
+		                    values: (function () {
+		                        var hours = [];
+		                        for (var i=0; i<24; i++) hours.push(i > 9 ? i : '0'+i);
+		                        return hours;
+		                    })()
+		                },
+		                {
+		                    divider: true,  // 这是一个分隔符
+		                    content: '时'
+		                },
+		                {
+		                    values: (function () {
+		                        var minutes = [];
+		                        for (var i=0; i<60; i++) minutes.push(i > 9 ? i : '0'+i);
+		                        return minutes;
+		                    })()
+		                },
+		                {
+		                    divider: true,  // 这是一个分隔符
+		                    content: '分'
+		                }
+		            ];
+		        },
+		        onChange: function (picker, values, displayValues) {
+		            console.log(values);
+		        }
+		    });
+			
+			$("#fabu").click(function(){
+				var id="";
+				var owner=$("#owner").val();
+				var startPoint = $("select[name='select1']").find("option:selected").text();
+				var endPoint = $("select[name='select2']").find("option:selected").text();
+				var setOutDate=$("#setOutDate").val();
+				var model=$("#model").val();
+				var price=$("#price").val();
+				var remainingSeats=$("#remainingSeats").val();
+				var phone=$("#phone").val();
+				var remark=$("#remark").val();
+				
+				if(owner=="" || owner==undefined){
+					   $.toptip("车主不能为空");
+	                   return false;
+				}
+				else if(startPoint=="" || startPoint==undefined){
+					   $.toptip("出发地不能为空");
+	                return false;
+				}
+				else if(endPoint=="" || endPoint==undefined){
+					   $.toptip("目的地不能为空");
+	                return false;
+				}
+				else if(setOutDate=="" || setOutDate==undefined){
+					   $.toptip("出发时间不能为空");
+	                return false;
+				}
+				else if(remainingSeats=="" || remainingSeats==undefined){
+					   $.toptip("余座不能为空");
+	             return false;
+				}
+				else if(phone=="" || phone==undefined){
+					   $.toptip("电话号码不能为空");
+	             return false;
+				}
+				else if(model=="" || model==undefined){
+					   $.toptip("车型不能为空");
+		          return false;
+				}
+				else if(price=="" || price==undefined){
+					   $.toptip("价格不能为空");
+		          return false;
+				}
+				$.ajax({
+	    			url:'/woaipinche/insertYuding',
+	    			type:'post',
+	    			data:JSON.stringify(
+	    					{startPoint:startPoint,
+	    					 endPoint:endPoint,
+	    					 owner:owner,
+	    					 model:model,
+	    					 setOutDate:setOutDate,
+	    					 remainingSeats:remainingSeats,
+	    					 phone:phone,
+	    					 price:price,
+	    					 remark:remark
+	    					}
+	    					),
+	    			contentType: 'application/json; charset=UTF-8',
+	                success: function (data) {
+	                	if(data.status=='0'){
+	                		window.location.href="msgSuccess.html"; 
+	                	}
+	                },
+	                error:function(){
+	                	$.toptip("服务器错误！");
+	                }
+				});
+				
+			});
+		});
+	</script>
+</body>
+</html>

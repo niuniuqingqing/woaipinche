@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<title>芝麻信息</title>
+<!-- head 中 -->
+<link rel="stylesheet" type="text/css"
+	href="//res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.staticfile.org/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdnjs.cloudflare.com/ajax/libs/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" href="weui-master/dist/style/weui.css" />
+<link rel="stylesheet" href="weui-master/dist/example/example.css" />
+
+<link rel="stylesheet" href="weui/css/weuix.css" />
+
+
+
+<script src="weui/js/zepto.min.js"></script>
+<script src="weui/js/zepto.weui.js"></script>
+
+<!-- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script> -->
+</head>
+<body>
+	<div class="page__hd"
+		style="background: url(timg4.jpg); background-size: 100% 100%; background-repeat: no-repeat;">
+		<h1 class="page__title">我爱拼车</h1>
+		<p class="page__desc" style="color: black">会员注册</p>
+	</div>
+	<div class="page__bd">
+			<div class="weui-cells">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label for="" class="weui-label">我的手机号</label>
+					</div>
+					<div class="weui-cell__bd">
+							<input id="phone" class="weui-input" type="number"
+							pattern="[0-9]*" placeholder="请输入号码">
+					</div>
+				</div>
+					
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label for="" class="weui-label">推荐人手机号</label>
+					</div>
+					<div class="weui-cell__bd">
+							<input id="phone" class="weui-input" type="number"
+							pattern="[0-9]*" placeholder="请输入号码">
+					</div>
+				</div>
+				
+			</div>
+
+		<div class="button-sp-area">
+			<a  id="denglu"	class="weui-btn weui-btn_block weui-btn_primary" href="zhifu.html">提交</a>
+			<a  class="weui-btn weui-btn_block weui-btn_primary" href="huiyuan.html">已有账号登录</a>
+		</div>
+	</div>
+	<div class="page__ft"></div>
+	<script>
+		$(function(){
+			$("#fabu").click(function(){
+				var id="";
+				var phone=$("#phone").val();
+				else if(phone=="" || phone==undefined){
+					   $.toptip("电话号码不能为空");
+	             return false;
+				}
+				$.ajax({
+	    			url:'/woaipinche/insertYuding',
+	    			type:'post',
+	    			data:JSON.stringify(
+	    					{startPoint:startPoint,
+	    					 endPoint:endPoint,
+	    					 owner:owner,
+	    					 model:model,
+	    					 setOutDate:setOutDate,
+	    					 remainingSeats:remainingSeats,
+	    					 phone:phone,
+	    					 price:price,
+	    					 remark:remark
+	    					}
+	    					),
+	    			contentType: 'application/json; charset=UTF-8',
+	                success: function (data) {
+	                	if(data.status=='0'){
+	                		window.location.href="msgSuccess.html"; 
+	                	}
+	                },
+	                error:function(){
+	                	$.toptip("服务器错误！");
+	                }
+				});
+				
+			});
+		});
+	</script>
+</body>
+</html>

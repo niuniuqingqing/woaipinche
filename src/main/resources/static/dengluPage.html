@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<title>芝麻信息</title>
+<!-- head 中 -->
+<link rel="stylesheet" type="text/css"
+	href="//res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.staticfile.org/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdnjs.cloudflare.com/ajax/libs/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" href="weui-master/dist/style/weui.css" />
+<link rel="stylesheet" href="weui-master/dist/example/example.css" />
+
+<link rel="stylesheet" href="weui/css/weuix.css" />
+
+
+
+<script src="weui/js/zepto.min.js"></script>
+<script src="weui/js/zepto.weui.js"></script>
+
+<!-- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script> -->
+</head>
+<body>
+	<div class="page__hd"
+		style="background: url(timg4.jpg); background-size: 100% 100%; background-repeat: no-repeat;">
+		<h1 class="page__title">我爱拼车</h1>
+		<p class="page__desc" style="color: black">登录</p>
+	</div>
+	<div class="page__bd">
+		<div class="weui-cells">
+				<div class="weui-cell">
+			        <div class="weui-cell__hd">
+			            <label class="weui-label">手机号</label>
+			        </div>
+			        <div class="weui-cell__bd">
+			            <input class="weui-input" id="phone" placeholder="请输入手机号" type="tel">
+			        </div>
+			
+			    </div>
+		    
+			    <div class="weui-cell weui-cell_vcode">
+			        <div class="weui-cell__hd">
+			            <label class="weui-label">验证码</label>
+			        </div>
+			        <div class="weui-cell__bd">
+			            <input class="weui-input" placeholder="验证码" type="number">
+			        </div>
+			        <div class="weui-cell__ft">
+			            <button class="weui-vcode-btn" id="vcode" onclick="settime(this)">获取验证码</button>
+			        </div>
+			    </div>
+		</div>
+
+		<div class="button-sp-area">
+			<a  id="denglu"	class="weui-btn weui-btn_block weui-btn_primary" >登录</a>
+		</div>
+	</div>
+	<div class="page__ft"></div>
+	<script>
+	 	var countdown=60;
+			function settime(obj) {
+		        var code = $(obj);
+		        if (countdown == 0) {
+		            code.removeAttr('disabled');
+		            code.text("获取验证码");
+		            countdown =60;
+		            return;
+		        } else {
+		            code.text("重新发送(" + countdown + ")");
+		            code.attr('disabled',true);
+		            countdown--;
+		        }
+		        setTimeout(function() {
+	                settime(obj) }, 1000);
+		    }
+	
+		$(function(){
+			$("#denglu").click(function(){
+				var phone=$("#phone").val();
+				 if(phone=="" || phone==undefined){
+					   $.toptip("电话号码不能为空");
+	             return false;
+				}
+				$.ajax({
+	    			url:'/woaipinche/denglu',
+	    			type:'POST',
+	    			data:JSON.stringify({phone:phone}),
+	    			contentType: 'application/json; charset=UTF-8',
+	    			dataType:'json',
+	                success: function (data) {
+	                	if(data.status=='0'){
+	                		window.location.href="gerenPage.html"; 
+	                	}else{
+	                		$.toptip("验证码错误！");
+	                	}
+	                },
+	                error:function(){
+	                	$.toptip("服务器错误！");
+	                }
+				});
+				
+			});
+		});
+	</script>
+</body>
+</html>

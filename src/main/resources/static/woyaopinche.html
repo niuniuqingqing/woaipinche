@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<title>芝麻评车</title>
+<!-- head 中 -->
+<link rel="stylesheet" type="text/css"
+	href="//res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.staticfile.org/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdnjs.cloudflare.com/ajax/libs/weui/0.4.3/style/weui.css">
+
+<link rel="stylesheet" href="weui-master/dist/style/weui.css" />
+<link rel="stylesheet" href="weui-master/dist/example/example.css" />
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+	<div class="page__hd" style="background:url(timg3.jpg);background-size:100% 100%;background-repeat:no-repeat;">
+		<h1 class="page__title">我爱拼车</h1>
+	</div>
+	<div class="page__bd">
+		<div class="weui-cells">
+			<div class="weui-cell weui-cell_select weui-cell_select-after">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">出发城市</label>
+				</div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="select1">
+						<option value="1">成都</option>
+						<option value="2">巴中</option>
+						<option value="3">重庆</option>
+						<option value="4">巴中通江</option>
+						<option value="5">巴中平昌</option>
+						<option value="6">巴中顶山</option>
+						<option value="7">巴中南江</option>
+						<option value="8">恩阳玉山</option>
+					</select>
+				</div>
+			</div>
+			<div class="weui-cell weui-cell_select weui-cell_select-after">
+				<div class="weui-cell__hd">
+					<label for="" class="weui-label">到达城市</label>
+				</div>
+				<div class="weui-cell__bd">
+					<select class="weui-select" name="select2">
+					    <option value="2">巴中</option>
+						<option value="1">成都</option>
+						<option value="3">重庆</option>
+						<option value="4">巴中通江</option>
+						<option value="5">巴中平昌</option>
+						<option value="6">巴中顶山</option>
+						<option value="7">巴中南江</option>
+						<option value="8">恩阳玉山</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="button-sp-area">
+			<a id="search" class="weui-btn weui-btn_block weui-btn_primary">查询车主</a>
+		</div>
+	</div>
+	<div class="page__ft">
+	
+	</div>
+		<script>
+			
+		$("#search").click(function(){
+			var startOpint = $("select[name='select1']").find("option:selected").text();
+			var endOpint = $("select[name='select2']").find("option:selected").text();
+			var url = "yuding.html?startPoint="+startOpint+"&endPoint="+endOpint+"";
+			window.location.href=url;
+		});
+		
+		</script>
+</body>
+</html>

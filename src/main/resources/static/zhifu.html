@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<title>芝麻评车</title>
+<!-- head 中 -->
+<link rel="stylesheet" type="text/css"
+	href="//res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.staticfile.org/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdnjs.cloudflare.com/ajax/libs/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" href="weui-master/dist/style/weui.css" />
+<link rel="stylesheet" href="weui-master/dist/example/example.css" />
+<link rel="stylesheet" href="weui/css/weuix.css" />
+<script src="weui/js/zepto.min.js"></script>
+<script src="weui/js/zepto.weui.js"></script>
+</head>
+<body>
+<div class="weui-pay weui-cells">
+    <h1 class="weui-payselect-title">选择金额付款</h1>
+    <p class="weui-payselect-info">支付金额给商户</p>
+    <ul class="weui-payselect-ul">
+        <li class="weui-payselect-li">
+            <a href="javascript:;" class="weui-payselect-a">1元<span class="weui-pay-12">110次</span></a>
+        </li>
+        <li class="weui-payselect-li">
+            <a href="javascript:;" class="weui-payselect-a">10元</a>
+        </li>
+        <li class="weui-payselect-li">
+            <a href="javascript:;" class="weui-payselect-a">100元<span class="weui-pay-12">99.9元</span></a>
+        </li>
+        <li class="weui-payselect-li">
+            <a href="javascript:;" class="weui-payselect-a weui-payselect-on">200元</a>
+        </li>
+        <li class="weui-payselect-li">
+            <a href="javascript:;" class="weui-payselect-a">300元</a>
+        </li>
+        <li class="weui-payselect-li">
+            <a href="javascript:;" class="weui-payselect-a">500元</a>
+        </li>
+    </ul>
+    <div class="page__bd">
+			<div class="weui-cells">
+			
+			    <div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label for="" class="weui-label">推荐人</label>
+					</div>
+					<div class="weui-cell__bd">
+							<input id="phone" class="weui-input" type="number"
+							pattern="[0-9]*" placeholder="请输入手机号码">
+					</div>
+				</div>
+			</div>
+			</div>
+    <a href="javascript:;" class="weui-btn weui-btn_primary">立即支付</a>
+
+</div>
+
+<script>
+
+
+//获取url中的参数
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return decodeURI(r[2]); return null; //返回参数值
+}
+	
+
+</script>
+</body>
+</html>

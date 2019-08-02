@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>芝麻评车</title>
+<link rel="stylesheet" type="text/css"
+	href="//res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.staticfile.org/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdnjs.cloudflare.com/ajax/libs/weui/0.4.3/style/weui.css">
+
+<link rel="stylesheet" href="weui-master/dist/style/weui.css" />
+<link rel="stylesheet" href="weui-master/dist/example/example.css" />
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+	<div class="weui_dialog_confirm">
+		<div class="weui_mask"></div>
+		<div class="weui_dialog">
+			<div class="weui_dialog_hd">
+				<strong class="weui_dialog_title">提示</strong>
+			</div>
+			<div class="weui_dialog_bd" id="content">
+			</div>
+			<div class="weui_dialog_ft">
+				<a  onclick="javascript:history.go(-1);" class="weui_btn_dialog default">取消</a> 
+				<a id="confirm" class="weui_btn_dialog primary">确定</a>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		$(function(){
+			var tel = getUrlParam('tel');
+			$("#content").append("确认拨打电话:"+tel+"吗?<br>");
+			$("#confirm").attr('href','tel:'+tel);
+		});
+	
+		//获取url中的参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return decodeURI(r[2]); return null; //返回参数值
+        }
+	</script>
+</body>
+</html>

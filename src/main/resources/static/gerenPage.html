@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<title>芝麻评车</title>
+<!-- head 中 -->
+<link rel="stylesheet" type="text/css"
+	href="//res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.staticfile.org/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdnjs.cloudflare.com/ajax/libs/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" href="weui-master/dist/style/weui.css" />
+<link rel="stylesheet" href="weui-master/dist/example/example.css" />
+<link rel="stylesheet" href="weui/css/weuix.css" />
+<script src="weui/js/zepto.min.js"></script>
+<script src="weui/js/zepto.weui.js"></script>
+</head>
+<body>
+
+		<div class="page-hd weui-cells">
+		   <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" src="weui/images/logo.jpg" alt="">
+                </div>
+                <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title" id="name">牛逼逼</h4>
+                    <p class="weui-media-box__desc" id="phone">15174361531</p>
+                </div>
+            </a>
+		</div>
+		<div class="page__bd">
+        <div class="weui-cells">
+		<a class="weui-cell weui-cell_access" href="javascript:;">
+			<div class="weui-cell__hd">
+				<img src="weui/images/icon_nav_article.png" alt="" style="width: 20px; margin-right: 5px; display: block">
+			</div>
+			<div class="weui-cell__bd weui-cell_primary">
+				<p>修改备注</p>
+			</div> <span class="weui-cell__ft"></span>
+		</a> 
+		<a class="weui-cell weui-cell_access" href="javascript:huyuan();">
+			<div class="weui-cell__hd">
+				<img src="weui/images/icon_nav_msg.png"	alt="" style="width: 20px; margin-right: 5px; display: block">
+			</div>
+			<div class="weui-cell__bd weui-cell_primary">
+				<p>升级会员</p>
+			</div> <span class="weui-cell__ft"></span>
+		</a>
+		<a class="weui-cell weui-cell_access" href="javascript:;">
+			<div class="weui-cell__hd">
+				<img src="weui/images/icon_nav_search_bar.png"	alt="" style="width: 20px; margin-right: 5px; display: block">
+			</div>
+			<div class="weui-cell__bd weui-cell_primary">
+				<p>我的成员</p>
+			</div> <span class="weui-cell__ft"></span>
+		</a>
+		
+		<a class="weui-cell weui-cell_access" href="javascript:;">
+			<div class="weui-cell__hd">
+				<img src="weui/images/icon_nav_search_bar.png"	alt="" style="width: 20px; margin-right: 5px; display: block">
+			</div>
+			<div class="weui-cell__bd weui-cell_primary">
+				<p>发表评论</p>
+			</div> <span class="weui-cell__ft"></span>
+		</a>
+		
+		
+		<a class="weui-cell weui-cell_access" href="javascript:;">
+			<div class="weui-cell__hd">
+				<img src="weui/images/icon_nav_button.png"	alt="" style="width: 20px; margin-right: 5px; display: block">
+			</div>
+			<div class="weui-cell__bd weui-cell_primary">
+				<p>退出</p>
+			</div> <span class="weui-cell__ft"></span>
+		</a>
+		</div>
+		</div>
+		<div class="page__ft"></div>
+		
+		<script>
+			$(function(){
+				$.ajax({
+	    			url:'/woaipinche/geren',
+	    			type:'post',
+	    			contentType: 'application/json; charset=UTF-8',
+	    			dataType:'json',
+	                success: function (data) {
+	                	if(data.status=='2'){//没有登录
+	                		window.location.href="dengluPage.html"; 
+	                	}else{
+	                		$("#name").text(data.name);
+	                		$("#phone").text(data.phone);
+	                	}
+	                },
+	                error:function(){
+	                	$.toptip("服务器错误！");
+	                }
+				});
+				
+				
+				
+				
+				
+				
+				
+			});
+			
+			function huyuan(){//升级会员功能
+				window.location.href="zhifu.html?phone="+$("#phone").text(); 
+			}
+			//退出
+			function tuichu(){
+				//退出
+				$.ajax({
+	    			url:'/woaipinche/tuichu',
+	    			type:'POST',
+	    			data:JSON.stringify({phone:$("phone").text()}),
+	    			contentType: 'application/json; charset=UTF-8',
+	    			dataType:'json',
+	                success: function (data) {
+	                	if(data.status=='0'){
+	                		window.location.href="dengluPage.html"; 
+	                	}else{
+	                		$.toptip("验证码错误！");
+	                	}
+	                },
+	                error:function(){
+	                	$.toptip("服务器错误！");
+	                }
+				});
+				
+			}
+		</script>
+</body>
+</html>
