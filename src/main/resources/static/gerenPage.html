@@ -26,14 +26,14 @@
                     <img class="weui-media-box__thumb" src="weui/images/logo.jpg" alt="">
                 </div>
                 <div class="weui-media-box__bd">
-                    <h4 class="weui-media-box__title" id="name">牛逼逼</h4>
-                    <p class="weui-media-box__desc" id="phone">15174361531</p>
+                    <h4 class="weui-media-box__title" id="name"></h4>
+                    <p class="weui-media-box__desc" id="phone"></p>
                 </div>
             </a>
 		</div>
 		<div class="page__bd">
         <div class="weui-cells">
-		<a class="weui-cell weui-cell_access" href="javascript:;">
+		<a class="weui-cell weui-cell_access" href="xiugaibeizhuPage.html">
 			<div class="weui-cell__hd">
 				<img src="weui/images/icon_nav_article.png" alt="" style="width: 20px; margin-right: 5px; display: block">
 			</div>
@@ -49,7 +49,7 @@
 				<p>升级会员</p>
 			</div> <span class="weui-cell__ft"></span>
 		</a>
-		<a class="weui-cell weui-cell_access" href="javascript:;">
+		<a class="weui-cell weui-cell_access" href="javascript:wodechengyuan();">
 			<div class="weui-cell__hd">
 				<img src="weui/images/icon_nav_search_bar.png"	alt="" style="width: 20px; margin-right: 5px; display: block">
 			</div>
@@ -58,7 +58,7 @@
 			</div> <span class="weui-cell__ft"></span>
 		</a>
 		
-		<a class="weui-cell weui-cell_access" href="javascript:;">
+		<a class="weui-cell weui-cell_access" href="javascript:pinlunPage();">
 			<div class="weui-cell__hd">
 				<img src="weui/images/icon_nav_search_bar.png"	alt="" style="width: 20px; margin-right: 5px; display: block">
 			</div>
@@ -68,7 +68,7 @@
 		</a>
 		
 		
-		<a class="weui-cell weui-cell_access" href="javascript:;">
+		<a class="weui-cell weui-cell_access" href="javascript:tuichu();">
 			<div class="weui-cell__hd">
 				<img src="weui/images/icon_nav_button.png"	alt="" style="width: 20px; margin-right: 5px; display: block">
 			</div>
@@ -111,6 +111,9 @@
 			function huyuan(){//升级会员功能
 				window.location.href="zhifu.html?phone="+$("#phone").text(); 
 			}
+			function wodechengyuan(){//我的成员功能
+				window.location.href="wodechengyuanPage.html?phone="+$("#phone").text(); 
+			}
 			//退出
 			function tuichu(){
 				//退出
@@ -133,6 +136,11 @@
 				});
 				
 			}
+			
+			function pinlunPage(){//发表评论
+				window.location.href="pinlunPage.html?phone="+$("#phone").text(); 
+			}
+						
 		</script>
 </body>
 </html>

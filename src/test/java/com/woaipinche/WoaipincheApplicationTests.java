@@ -12,5 +12,4 @@ public class WoaipincheApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

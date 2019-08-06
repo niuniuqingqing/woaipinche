@@ -31,38 +31,64 @@
 		<p class="page__desc" style="color: black">我的</p>
 	</div>
 	<div class="page__bd">
-		<div class="weui-cells">
-				<div class="weui-cell">
-			        <div class="weui-cell__hd">
-			            <label class="weui-label">备注</label>
-			        </div>
-			        <div class="weui-cell__bd">
-			            <input class="weui-input" id="name" >
-			        </div>
-			
-			    </div>
-		    
-			    
-		</div>
 
+		<div class="weui-cells">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<textarea class="weui-textarea" placeholder="请输入文本" rows="3"
+						id="content" onkeyup="textarea(this);"></textarea>
+					<div class="weui-textarea-counter">
+						<span>10</span>/<i>1000</i>
+					</div>
+				</div>
+				<i class="weui-icon-clear" onclick="cleararea(this)"></i>
+			</div>
+
+		</div>
 		<div class="button-sp-area">
-			<a  id="confirm"	class="weui-btn weui-btn_block weui-btn_primary" >确定</a>
+			<a id="confirm" class="weui-btn weui-btn_block weui-btn_primary">发布</a>
 		</div>
 	</div>
 	<div class="page__ft"></div>
 	<script>
 	
+	 function textarea(input) {
+         var content = $(input);
+           var max =  content.next().find('i') .text();
+         var value = content.val();
+         if (value.length>0) {
+
+             value = value.replace(/\n|\r/gi,"");
+             var len = value.length;
+             content.next().find('span').text(len) ;
+              if(len>max){
+                  content.next().addClass('f-red');
+              }else{
+                  content.next().removeClass('f-red');
+              }
+         }
+     }
+
+     function cleartxt(obj){
+         $(obj).prev().find('.weui-input').val("");
+         return false;
+     }
+     
+	   function cleararea(obj){
+           $(obj).prev().find('.weui-textarea').val("");
+           return false;
+       }
 		$(function(){
 			$("#confirm").click(function(){
-				var name=$("#name").val();
-				 if(name=="" || name==undefined){
-					   $.toptip("备注不能为空");
+				var content=$("#content").val();
+				 if(content=="" || content==undefined){
+					   $.toptip("不能为空");
 	             return false;
 				}
 				$.ajax({
-	    			url:'/woaipinche/beizhu',
+	    			url:'/woaipinche/fabu',
 	    			type:'POST',
-	    			data:JSON.stringify({name:$("#name").val()}),
+	    			data:JSON.stringify({content:$("#content").val()}),
 	    			contentType: 'application/json; charset=UTF-8',
 	    			dataType:'json',
 	                success: function (data) {
@@ -76,7 +102,6 @@
 	                	$.toptip("服务器错误！");
 	                }
 				});
-				
 			});
 		});
 	</script>

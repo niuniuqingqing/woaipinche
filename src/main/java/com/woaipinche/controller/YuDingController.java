@@ -32,7 +32,7 @@ public class YuDingController {
     @ResponseBody
     public Map<String, Object> yuding(@RequestBody YuDing yuDing,HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
-		Pageable pageable = new PageRequest(0,5,new Sort(Direction.DESC,"set_out_date"));
+		Pageable pageable = new PageRequest(0,50,new Sort(Direction.DESC,"set_out_date"));
         Page<YuDing> yuDingPage = yuDingRepository.findYuDingPointPage(yuDing.getStartPoint(),yuDing.getEndPoint(),pageable);
         List<YuDing> yuDings = yuDingPage.getContent();
         modelMap.put("value",yuDings);
