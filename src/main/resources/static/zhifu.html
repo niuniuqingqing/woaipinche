@@ -20,24 +20,35 @@
 </head>
 <body>
 	<div class="weui-pay weui-cells">
-		<h1 class="weui-payselect-title">选择金额付款</h1>
+		<h1 class="weui-payselect-title">金额付款</h1>
 		<p class="weui-payselect-info">支付金额给商户</p>
-		<ul class="weui-payselect-ul">
+		<p class="weui-payselect-info"></p>
+		<p class="weui-payselect-info"></p>
+		<p class="weui-payselect-info"></p>
+		
+		<p class="weui-pay-num">￥20.00</p>
+		
+		
+	<!-- 	
+		<h1 class="weui-payselect-title"><a href="javascript:;"
+				class="weui-payselect-a" style="background-color:#07c160;color:black">20元</a></h1> -->
+		
+	<!-- 	<ul class="weui-payselect-ul">
 			<li class="weui-payselect-li"><a href="javascript:;"
-				class="weui-payselect-a">1元<span class="weui-pay-12">110次</span></a>
+				class="weui-payselect-a" style="background-color:#07c160;color:black">20元<span class="weui-pay-12"></span></a>
 			</li>
-			<li class="weui-payselect-li"><a href="javascript:;"
-				class="weui-payselect-a">10元</a></li>
-			<li class="weui-payselect-li"><a href="javascript:;"
-				class="weui-payselect-a">100元<span class="weui-pay-12">99.9元</span></a>
-			</li>
-			<li class="weui-payselect-li"><a href="javascript:;"
+			 <li class="weui-payselect-li"><a href="javascript:;"
+				class="weui-payselect-a">10元</a></li> 
+			 <li class="weui-payselect-li"><a href="javascript:;"
+				class="weui-payselect-a">50元<span class="weui-pay-12"></span>1年</a>
+			</li> 
+			 <li class="weui-payselect-li"><a href="javascript:;"
 				class="weui-payselect-a weui-payselect-on">200元</a></li>
 			<li class="weui-payselect-li"><a href="javascript:;"
 				class="weui-payselect-a">300元</a></li>
 			<li class="weui-payselect-li"><a href="javascript:;"
-				class="weui-payselect-a">500元</a></li>
-		</ul>
+				class="weui-payselect-a">500元</a></li> 
+		</ul> -->
 		<div class="page__bd">
 			<div class="weui-cells">
 
@@ -65,8 +76,51 @@
 				return decodeURI(r[2]);
 			return null; //返回参数值
 		}
-
-		function onBridgeReady() {
+		$(function(){
+			
+			var outTradeNo="";  //订单号
+            var date = new Date();
+            for(var i=0;i<5;i++) //5位随机数，用以加在时间戳后面。
+            {
+                 outTradeNo += Math.floor(Math.random()*10); 
+            }
+             outTradeNo = date.getFullYear().toString() + (date.getMonth()+ 1).toString()  + 
+            date.getDate().toString() + date.getHours().toString() + date.getMinutes().toString() 
+           + date.getSeconds().toString()+ date.getMilliseconds().toString() + outTradeNo; 
+			/* alert(outTradeNo); */
+		});
+/* 		
+		function startZhifu(){
+			$.ajax({
+				url:'/woaipinche/wxPay',
+    			type:'post',
+    			data:JSON.stringify({
+    				code:'',
+    				body:'',
+    				outTradeNo:'',
+    				totalFee:'0.01',
+    				tradeType:'JSAPI'
+    			}),
+    			contentType: 'application/json; charset=UTF-8',
+                success: function (data) {
+                	WeixinJSBridge.invoke('getBrandWCPayRequest', {
+        				"appId" : data.appId, //公众号名称，由商户传入     
+        				"timeStamp" : data.timeStamp, //时间戳，自1970年以来的秒数     
+        				"nonceStr" : data.nonceStr, //随机串     
+        				"package" : data.package,
+        				"signType" : data.signType, //微信签名方式：     
+        				"paySign" : data.paySign //微信签名 
+        			}, function(res) {
+        				if (res.err_msg == "get_brand_wcpay_request:ok") {
+        					// 使用以上方式判断前端返回,微信团队郑重提示：
+        					//res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+        				}
+        			});
+                });
+			});
+		} */
+			
+		/* function onBridgeReady() {
 			WeixinJSBridge.invoke('getBrandWCPayRequest', {
 				"appId" : "wx2421b1c4370ec43b", //公众号名称，由商户传入     
 				"timeStamp" : "1395712654", //时间戳，自1970年以来的秒数     
@@ -80,9 +134,8 @@
 					//res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
 				}
 			});
-		}
-		$(function()){
-			
+		} */
+		/* $(function()){
 			if (typeof WeixinJSBridge == "undefined") {
 				if (document.addEventListener) {
 					document.addEventListener('WeixinJSBridgeReady', onBridgeReady,
@@ -94,8 +147,7 @@
 			} else {
 				onBridgeReady();
 			}
-			
-		});
+		}); */
 	</script>
 </body>
 </html>
