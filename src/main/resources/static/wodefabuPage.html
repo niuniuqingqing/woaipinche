@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<title>芝麻评车</title>
+<!-- head 中 -->
+<link rel="stylesheet" type="text/css"
+	href="//res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdn.staticfile.org/weui/0.4.3/style/weui.css">
+<link rel="stylesheet" type="text/css"
+	href="//cdnjs.cloudflare.com/ajax/libs/weui/0.4.3/style/weui.css">
+
+<link rel="stylesheet" href="weui-master/dist/style/weui.css" />
+<link rel="stylesheet" href="weui-master/dist/example/example.css" />
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+	<div class="page__hd"
+		style="background: url(timg.jpg); background-size: 100% 100%; background-repeat: no-repeat;">
+		<h1 class="page__title" style="color: white">我爱拼车</h1>
+		<p class="page__desc" style="color: white">我要拼车</p>
+	</div>
+	<div class="page__bd">
+	</div>
+	<div class="page__ft"></div>
+	<script>
+    	$(function(){
+    		var phone = getUrlParam("phone");
+    		$('.page__bd').empty();
+    		$.ajax({
+    			url:'/woaipinche/wodefabu',
+    			type:'post',
+    			data:JSON.stringify({phone,phone}),
+    			contentType: 'application/json; charset=UTF-8',
+                success: function (data) {
+                	var list = data.value;
+                	$.each(list,function(index,val){
+                		var content = ' <div class="weui-form-preview__bd"><div class="weui-form-preview__item">';
+                		   content  +='<label class="weui-form-preview__label">价格</label>';
+                		   content  +='<span  class="weui-form-preview__value">';
+                		   content  +=val.price;
+                		   content  +='</span></div>';
+                			
+                			          content  +='<div class="weui-form-preview__item">';
+                		              content  +='<label class="weui-form-preview__label">车主</label>';
+                					  content  +='<span  class="weui-form-preview__value">';
+                					  content  +=val.owner;
+                			          content  +='</span></div>';
+                			
+                			          content  +='<div class="weui-form-preview__item">';
+                		              content  +='<label class="weui-form-preview__label">出发地</label>';
+                					  content  +='<span  class="weui-form-preview__value">';
+                					  content  +=val.startPoint;
+                			          content  +='</span></div>';
+                			          
+                			          
+                			          content  +='<div class="weui-form-preview__item">';
+                		              content  +='<label class="weui-form-preview__label">目的地</label>';
+                					  content  +='<span  class="weui-form-preview__value">';
+                					  content  +=val.endPoint;
+                			          content  +='</span></div>';
+                			          
+                			          content  +='<div class="weui-form-preview__item">';
+                		              content  +='<label class="weui-form-preview__label">预计出发时间</label>';
+                					  content  +='<span  class="weui-form-preview__value">';
+                					  content  +=datetimeFormat(val.setOutDate);
+                			          content  +='</span></div>';
+                			
+                			          content  +='<div class="weui-form-preview__item">';
+                		              content  +='<label class="weui-form-preview__label">余座</label>';
+                					  content  +='<span  class="weui-form-preview__value">';
+                					  content  +=val.remainingSeats;
+                			          content  +='</span></div>';
+                			          
+                			          content  +='<div class="weui-form-preview__item">';
+                		              content  +='<label class="weui-form-preview__label">车型</label>';
+                					  content  +='<span  class="weui-form-preview__value">';
+                					  content  +=val.model;
+                			          content  +='</span></div>';
+                			          
+                			          content  +='<div class="weui-form-preview__item">';
+                		              content  +='<label class="weui-form-preview__label">备注</label>';
+                					  content  +='<span  class="weui-form-preview__value">';
+                					  content  +=val.remark;
+                			          content  +='</span></div>';
+                			          
+                			          content  +='<input id="id" class="weui-input" value="';
+                			          content  +=val.id;
+                			          content  +='" type="text" style="display:none"/></div>';
+                			          content  +='</div>';
+                			          content  +='<div class="weui-form-preview__ft">';
+                			          content  +='<a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:qxfb();">取消发布</a>';
+                			          content  +='</div>';
+                			          content  +='</div>';
+                              	$(".page__bd").append(content);
+                	});
+                }
+    		});
+    	});
+    	
+    	//获取url中的参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return decodeURI(r[2]); return null; //返回参数值
+        }
+        /*
+		 * 时间格式化工具 
+		 * 把Long类型的1527672756454日期还原yyyy-MM-dd 00:00:00格式日期   
+		 */    
+		function datetimeFormat(longTypeDate){    
+		    var dateTypeDate = "";    
+		    var date = new Date();    
+		    date.setTime(longTypeDate);    
+		    dateTypeDate += date.getFullYear();   //年    
+		    dateTypeDate += "-" + getMonth(date); //月     
+		    dateTypeDate += "-" + getDay(date);   //日    
+		    dateTypeDate += " " + getHours(date);   //时    
+		    dateTypeDate += ":" + getMinutes(date);     //分  
+		    dateTypeDate += ":" + getSeconds(date);     //分  
+		    return dateTypeDate;  
+		}  
+		//返回 01-12 的月份值     
+		function getMonth(date){    
+		    var month = "";    
+		    month = date.getMonth() + 1; //getMonth()得到的月份是0-11    
+		    if(month<10){    
+		        month = "0" + month;    
+		    }    
+		    return month;    
+		}    
+		//返回01-30的日期    
+		function getDay(date){    
+		    var day = "";    
+		    day = date.getDate();    
+		    if(day<10){    
+		        day = "0" + day;    
+		    }    
+		    return day;    
+		}  
+		//小时  
+		function getHours(date){  
+		    var hours = "";  
+		    hours = date.getHours();  
+		    if(hours<10){    
+		        hours = "0" + hours;    
+		    }    
+		    return hours;    
+		}  
+		//分  
+		function getMinutes(date){  
+		    var minute = "";  
+		    minute = date.getMinutes();  
+		    if(minute<10){    
+		        minute = "0" + minute;    
+		    }    
+		    return minute;    
+		}  
+		//秒  
+		function getSeconds(date){  
+		    var second = "";  
+		    second = date.getSeconds();  
+		    if(second<10){    
+		        second = "0" + second;    
+		    }    
+		    return second;    
+		}
+		//取消发布
+		function qxfb(){
+			var id=$("#id").val();
+			$.ajax({
+				url:'/woaipinche/qxfb',
+    			type:'post',
+    			data:JSON.stringify({
+    				id:id,
+    			}),
+    			contentType: 'application/json; charset=UTF-8',
+                success: function (data) {
+                	if(data.status='0'){
+                		window.location.href="msgSuccess.html";
+                	}
+                }
+			});
+		}
+    </script>
+</body>
+</html>

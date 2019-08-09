@@ -32,11 +32,6 @@
 	<div class="page__bd">
 		<div class="weui-cells">
 			<div class="weui-cell weui-cell_select weui-cell_select-after">
-				<!-- <div class="button-sp-area">
-					<a  id="yifabu"
-						class="weui-btn weui-btn_block weui-btn_primary">查看已发布</a>
-				</div> -->
-		
 				<div class="weui-cell__hd">
 					<label for="" class="weui-label">起点</label>
 				</div>
@@ -92,12 +87,11 @@
 
  -->
 			   <div class="weui-cell">
-			      <!--   <div class="weui-cell__hd">
+			         <div class="weui-cell__hd">
 			            <label class="weui-label">手机号</label>
-			        </div> -->
+			        </div> 
 			        <div class="weui-cell__bd">
-			            <input class="weui-input" placeholder="请输入手机号" type="tel">
-			            <button class="weui-vcode-btn" onclick="settime(this)">获取验证码</button>
+			            <input class="weui-input" id="phone" placeholder="请输入手机号" type="tel">
 			        </div>
 			    </div>
 			    
@@ -177,6 +171,7 @@
 		<div class="button-sp-area">
 			<a  id="fabu"
 				class="weui-btn weui-btn_block weui-btn_primary">发布信息</a>
+				<a id="look" class="weui-btn weui-btn_block" style="color:#07c160" >查看已发布信息</a>
 		</div>
 	</div>
 	<div class="page__ft"></div>
@@ -218,6 +213,15 @@
 		        }
 		    });
 			
+			$("#look").click(function(){
+				var phone=$("#phone").val();
+				if(phone=="" || phone==undefined){
+					 $.toptip("电话号码不能为空");
+	                 return false;
+				}
+				window.location.href="wodefabuPage.html?phone="+phone; 
+			});
+			
 			$("#fabu").click(function(){
 				var id="";
 				var owner=$("#owner").val();
@@ -229,6 +233,25 @@
 				var remainingSeats=$("#remainingSeats").val();
 				var phone=$("#phone").val();
 				var remark=$("#remark").val();
+				
+				if(phone=="" || phone==undefined){
+					   $.toptip("电话号码不能为空");
+	             return false;
+				}
+				//判断是否已发布信息
+				$.ajax({
+	    			url:'/woaipinche/wodefabu',
+	    			type:'post',
+	    			data:JSON.stringify({phone,phone}),
+	    			contentType: 'application/json; charset=UTF-8',
+	                success: function (data) {
+	                	var list = data.value;
+	                	if(list.length>0){
+	                		$.toptip("你已经发布过信息不能再次发布，请取消之前的信息后再发布");
+	                	}
+	                }
+				});
+				
 				
 				if(owner=="" || owner==undefined){
 					   $.toptip("车主不能为空");
@@ -250,10 +273,7 @@
 					   $.toptip("余座不能为空");
 	             return false;
 				}
-				else if(phone=="" || phone==undefined){
-					   $.toptip("电话号码不能为空");
-	             return false;
-				}
+			
 				else if(model=="" || model==undefined){
 					   $.toptip("车型不能为空");
 		          return false;

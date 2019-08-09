@@ -50,4 +50,27 @@ public class YuDingController {
         modelMap.put("status",'0');
         return modelMap;
     }
+    
+    
+    @RequestMapping(value = "/wodefabu", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> wodefabu(@RequestBody YuDing yuDing,HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+		Pageable pageable = new PageRequest(0,50,new Sort(Direction.DESC,"set_out_date"));
+        Page<YuDing> yuDingPage = yuDingRepository.findWodefabuPage(yuDing.getPhone(),pageable);
+        List<YuDing> yuDings = yuDingPage.getContent();
+        modelMap.put("value",yuDings);
+        return modelMap;
+    }
+    
+    @RequestMapping(value = "/qxfb", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> qxfb(@RequestBody YuDing yuDing,HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        yuDingRepository.delete(yuDing);
+        modelMap.put("status",'0');
+        return modelMap;
+    }
+    
+    
 }
