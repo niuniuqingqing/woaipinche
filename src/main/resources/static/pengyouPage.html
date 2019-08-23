@@ -50,16 +50,20 @@
 						type : 'post',
 						contentType : 'application/json; charset=UTF-8',
 						success : function(data) {
-							var list = data.value;
-							$.each(list,function(index, val) {
-												var content = '<li class="weui-comment-item"><div class="userinfo"><strong class="">';
-												content += val.content;
-												content += '</strong> <img class="avatar"src="weui/images/logo.jpg"></div><div class="weui-comment-msg"><span class="status"></span>';
-												content += '</div><p class="time">';
-												content += datetimeFormat(val.fabuDate);
-												content += '</p></li>';
-												$(".weui-comment").append(content);
-											});
+							if(data.status=='2'){//没有登录
+		                		window.location.href="dengluPage.html"; 
+		                	}else{
+		                		var list = data.value;
+								$.each(list,function(index, val) {
+													var content = '<li class="weui-comment-item"><div class="userinfo"><strong class="">';
+													content += val.content;
+													content += '</strong> <img class="avatar"src="weui/images/logo.jpg"></div><div class="weui-comment-msg"><span class="status"></span>';
+													content += '</div><p class="time">';
+													content += datetimeFormat(val.fabuDate);
+													content += '</p></li>';
+													$(".weui-comment").append(content);
+												});
+		                	}
 						}
 					});
 		});

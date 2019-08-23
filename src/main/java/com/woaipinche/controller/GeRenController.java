@@ -150,11 +150,16 @@ public class GeRenController {
     @RequestMapping(value = "/pinlun", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> pinlun(HttpServletRequest request) {
-   	    Map<String, Object> modelMap = new HashMap<String, Object>();
-		Pageable pageable = new PageRequest(0,50,new Sort(Direction.DESC,"fabu_date"));
-        Page<Pinlun> pinlunPage = pinlunRepository.findPinlunPage(pageable);
-        List<Pinlun> pinluns = pinlunPage.getContent();
-        modelMap.put("value",pinluns);
+    	 Map<String, Object> modelMap = new HashMap<String, Object>();
+    	String phone = (String)request.getSession().getAttribute("phone");
+    	if(phone==null){
+    		modelMap.put("status", '2');//没有登录
+    	}else{
+    		Pageable pageable = new PageRequest(0,50,new Sort(Direction.DESC,"fabu_date"));
+            Page<Pinlun> pinlunPage = pinlunRepository.findPinlunPage(pageable);
+            List<Pinlun> pinluns = pinlunPage.getContent();
+            modelMap.put("value",pinluns);
+    	}
         return modelMap;
     }
 }
