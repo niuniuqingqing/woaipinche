@@ -23,15 +23,16 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 
 @Controller
 public class WxPay {
-    private String AppId = "***";//公众账号ID
+    private String AppId = "wx3677e4735b4a133a";//公众账号ID
     private String AppSecret = "***";//公众账号密钥
-    private String Key = "***";//微信支付密钥
-    private String MchId = "***";//微信支付分配的商户号
+    private String Key = "zhangzhangzhangzhangzhangzhangli";//微信支付密钥
+    private String MchId = "1547873161";//微信支付分配的商户号
     /**
      * 根据code获取openId
      *
@@ -66,6 +67,8 @@ public class WxPay {
         }
         return jsonObject;
     }
+    
+    
     /**
      * 网页请求生成支付订单
      *
@@ -74,25 +77,30 @@ public class WxPay {
      * @return
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/wxPay", method = RequestMethod.POST)
+	@RequestMapping(value = "/wxPay", method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public Map createOrderOpenId(HttpServletRequest request, Map map) {
+    public ModelAndView createOrderOpenId(HttpServletRequest request, HttpServletResponse response) {
+    	ModelAndView mv=new ModelAndView();
         Map orderMap = new HashMap();
-        String openId = getOpenId(map.get("code").toString());
+        String total_fee = request.getParameter("total_fee");
+		//获取用户的code
+		String code = request.getParameter("code");
+		
+        String openId = getOpenId(code);
         if (StringUtils.isEmpty(openId)) {
-            return orderMap;
+            return mv;
         }
         try {
             String clientIp = getClientIp(request);
             orderMap.put("appid", AppId);  //  微信支付分配的公众账号ID（企业号corpid即为此appId）
             orderMap.put("mch_id", MchId); //  商户号
             orderMap.put("nonce_str", WxPayUtil.generateNonceStr());    //  随机字符串
-            orderMap.put("body", map.get("body"));   //  商品描述
-            orderMap.put("out_trade_no", map.get("outTradeNo"));   //  商户订单号
-            orderMap.put("total_fee", map.get("totalFee"));   //  订单总金额，单位为分
+            orderMap.put("body", "会员充值");   //  商品描述
+            orderMap.put("out_trade_no", String.valueOf(System.currentTimeMillis()));   //  商户订单号
+            orderMap.put("total_fee", total_fee);   //  订单总金额，单位为分
             orderMap.put("spbill_create_ip", clientIp);   //  终端IP,用户的客户端IP
-            orderMap.put("notify_url","http://www.liujunchen.com.con/woaipinche/payNotify"); //  通知地址-异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。
-            orderMap.put("trade_type", map.get("tradeType"));    //  交易类型	 JSAPI -JSAPI支付
+            orderMap.put("notify_url","http://264334q3m9.zicp.vip/woaipinche/payNotify"); //  通知地址-异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。
+            orderMap.put("trade_type", "JSAPI");    //  交易类型	 JSAPI -JSAPI支付
             orderMap.put("openid", openId); //  用户标识
             //  获取sign
             orderMap.put("sign", WxPayUtil.generateSignature(orderMap, Key));    //  key: apiKey
@@ -111,11 +119,7 @@ public class WxPay {
             String resXml = EntityUtils.toString(httpEntity, "UTF-8");
             Map orderResMap = WxPayUtil.xmlToMap(resXml);
             String prepayId = orderResMap.get("prepay_id").toString();
-            //  存储订单信息
-            map.put("clientIp", clientIp);
-            map.put("openId", openId);
-            map.put("prepayId", prepayId);
-            /*insertOrder(map);*/
+           
             //  封装前端调起JSAPI支付所需参数
             Map payMap = new HashMap();
             payMap.put("appId", AppId);  //  公众号id
@@ -125,11 +129,13 @@ public class WxPay {
             payMap.put("signType", "MD5");   //  签名方式
             //  再次签名获取paySign
             payMap.put("paySign", WxPayUtil.generateSignature(payMap, Key));   //  签名 key:apiKey
-            return payMap;
+            mv.addAllObjects(payMap);
+            mv.setViewName("pay.html");
+    		return mv;
         } catch (Exception e) {
             e.printStackTrace();
-            return new HashMap(0);
         }
+		return mv;
     }
     
     
