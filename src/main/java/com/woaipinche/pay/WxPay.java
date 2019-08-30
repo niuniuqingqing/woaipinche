@@ -98,7 +98,7 @@ public class WxPay {
             orderMap.put("out_trade_no", String.valueOf(System.currentTimeMillis()));   //  商户订单号
             orderMap.put("total_fee", total_fee);   //  订单总金额，单位为分
             orderMap.put("spbill_create_ip", clientIp);   //  终端IP,用户的客户端IP
-            orderMap.put("notify_url","http://264334q3m9.zicp.vip/woaipinche/payNotify"); //  通知地址-异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。
+            orderMap.put("notify_url","http://www.liujunchen.com.cn/woaipinche/payNotify"); //  通知地址-异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。
             orderMap.put("trade_type", "JSAPI");    //  交易类型	 JSAPI -JSAPI支付
             orderMap.put("openid", openId); //  用户标识
             //  获取sign
