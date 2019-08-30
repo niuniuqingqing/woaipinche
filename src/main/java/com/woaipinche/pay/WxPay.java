@@ -30,8 +30,8 @@ import com.alibaba.fastjson.JSONObject;
 @Controller
 public class WxPay {
     private String AppId = "wx3677e4735b4a133a";//公众账号ID
-    private String AppSecret = "***";//公众账号密钥
-    private String Key = "zhangzhangzhangzhangzhangzhangli";//微信支付密钥
+    private String AppSecret = "6ff2428cf94f9815c7258667ba3ea097";//公众账号密钥
+    private String Key = "78945612301234567898765432101234";//微信支付密钥
     private String MchId = "1547873161";//微信支付分配的商户号
     /**
      * 根据code获取openId
@@ -78,7 +78,6 @@ public class WxPay {
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/wxPay", method = {RequestMethod.POST,RequestMethod.GET})
-    @ResponseBody
     public ModelAndView createOrderOpenId(HttpServletRequest request, HttpServletResponse response) {
     	ModelAndView mv=new ModelAndView();
         Map orderMap = new HashMap();
@@ -108,7 +107,7 @@ public class WxPay {
             String xmlData = WxPayUtil.mapToXml(orderMap);
             //  统一下单->获取订单的prepay_id
             HttpClient httpClient = HttpClientBuilder.create().build();
-            HttpPost httpPost = new HttpPost("https://" + WXPayConstants.DOMAIN_API + WXPayConstants.SANDBOX_UNIFIEDORDER_URL_SUFFIX);
+            HttpPost httpPost = new HttpPost("https://api.mch.weixin.qq.com/pay/unifiedorder");
             StringEntity postEntity = new StringEntity(xmlData, "UTF-8");
             httpPost.addHeader("Content-Type", "text/xml");
             httpPost.addHeader("User-Agent", WXPayConstants.USER_AGENT);
@@ -123,14 +122,14 @@ public class WxPay {
             //  封装前端调起JSAPI支付所需参数
             Map payMap = new HashMap();
             payMap.put("appId", AppId);  //  公众号id
-            payMap.put("timeStamp", WxPayUtil.getCurrentTimestamp()); //  时间戳,转换成秒数
+            payMap.put("timeStamp", String.valueOf(WxPayUtil.getCurrentTimestamp())); //  时间戳,转换成秒数
             payMap.put("nonceStr", WxPayUtil.generateNonceStr());    //  随机字符串
             payMap.put("package", "prepay_id=" + prepayId);   //  订单详情扩展字符串
             payMap.put("signType", "MD5");   //  签名方式
             //  再次签名获取paySign
             payMap.put("paySign", WxPayUtil.generateSignature(payMap, Key));   //  签名 key:apiKey
             mv.addAllObjects(payMap);
-            mv.setViewName("pay.html");
+            mv.setViewName("pay");
     		return mv;
         } catch (Exception e) {
             e.printStackTrace();

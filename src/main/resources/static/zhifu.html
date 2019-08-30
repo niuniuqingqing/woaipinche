@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
-<title>芝麻评车</title>
+<title>芝麻信息</title>
 <!-- head 中 -->
 <link rel="stylesheet" type="text/css"
 	href="//res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
@@ -30,7 +30,7 @@
 			<div class="weui-cells">
 				<div class="weui-cell">
 					<div class="weui-cell__hd">
-						<label for="" class="weui-label">推荐人</label>
+						<label for="" class="weui-label">推荐人电话</label>
 					</div>
 					<div class="weui-cell__bd">
 						<input id="phone" class="weui-input" type="number"
@@ -44,12 +44,12 @@
 	<script>
 		 /*公众号支付*/
 	    function gzhPay() {
-	        var url = "http://264334q3m9.zicp.vip/woaipinche/wxPay.do?total_fee=20"; //注意此处的basePath是没有端口号的域名地址。如果包含:80,在提交给微信时有可能会提示 “redirect_uri参数错误” 。
+	        var url = "http://264334q3m9.zicp.vip/woaipinche/wxPay.do?total_fee=2000"; //注意此处的basePath是没有端口号的域名地址。如果包含:80,在提交给微信时有可能会提示 “redirect_uri参数错误” 。
 	        //money为订单需要支付的金额
 	        //state中存放的为商品订单号
 	        console.log(url);
-	        var weixinUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3677e4735b4a133a&redirect_uri="+encodeURI(url)+"   &response_type=code&scope=snsapi_userinfo&state=state#wechat_redirect";
-	        window.location.href=encodeURI(weixinUrl);
+	        var weixinUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3677e4735b4a133a&redirect_uri="+encodeURI(url)+"&response_type=code&scope=snsapi_userinfo&state=state#wechat_redirect";
+	        window.location.href=encodeURI(weixinUrl); 
 	    }
 	</script>
 </body>

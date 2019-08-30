@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>微信支付</title>
+<script src="weui/js/zepto.min.js"></script>
+<script src="weui/js/zepto.weui.js"></script>
+</head>
+<body>
+<input id="input1" th:value="${appId}" style="display:none"></input>
+<input id="input2" th:value="${timeStamp}" style="display:none"></input>
+<input id="input3" th:value="${nonceStr}" style="display:none"></input>
+<input id="input4" th:value="${package}" style="display:none"></input>
+<input id="input5" th:value="${paySign}" style="display:none"></input>
+</body>
+<script type="text/javascript">
+	$(function() {
+		pay();
+	});
+	function pay() {
+		if (typeof WeixinJSBridge == "undefined") {
+			if (document.addEventListener) {
+				document.addEventListener('WeixinJSBridgeReady', onBridgeReady,
+						false);
+			} else if (document.attachEvent) {
+				document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+				document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+			}
+		} else {
+			onBridgeReady();
+		}
+	}
+	function onBridgeReady() {
+		var appid = $("#input1").val();
+		var timestamp = $("#input2").val();
+		var nocncestr = $("#input3").val();
+		var packageValue = $("#input4").val();
+		var paysign = $("#input5").val();
+		WeixinJSBridge.invoke('getBrandWCPayRequest', {
+			"appId" : appid, 
+			"timeStamp" : timestamp, 
+			"nonceStr" : nocncestr, //随机串
+			"package" : packageValue,
+			"signType" : "MD5", //微信签名方式:
+			"paySign" : paysign //微信签名
+		}, function(res) {
+			if (res.err_msg == "get_brand_wcpay_request:ok") {
+				window.location.href="woyaopinche.html"; 
+			} else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+				console.log("用户取消支付")
+			} else {
+				alert("支付失败!");
+			}
+		});
+	}
+</script>
+</html>
